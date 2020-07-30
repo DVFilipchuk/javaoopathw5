@@ -2,19 +2,23 @@ package ru.geekbrains.java.oop;
 
 
 import org.hamcrest.MatcherAssert;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+
+import java.util.concurrent.TimeUnit;
 
 import static org.hamcrest.Matchers.*;
 
 public class HamcrestNavigationTest {
 
     ChromeDriver chromeDriver = new ChromeDriver();
+
+    public WebDriver driver;
 
 
 
@@ -28,12 +32,16 @@ public class HamcrestNavigationTest {
         chromeDriver.findElement(By.cssSelector("[class=\"search-panel__search-field\"]"))
                 .sendKeys("java");
 
+        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+        driver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
+        driver.manage().timeouts().setScriptTimeout(30, TimeUnit.SECONDS);
+
     }
 
 
 
     @Test
-    public void Test2(){
+    public void Navigation(){
 
         WebElement professionsNum = chromeDriver.findElement(By.xpath("//header//span[text()='3']"));
         WebElement coursesNum = chromeDriver.findElement(By.xpath("//header//span[text()='19']"));
